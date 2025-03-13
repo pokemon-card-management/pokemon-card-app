@@ -1,0 +1,22 @@
+# Node.js dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+
+# Expo cache and build
+.expo/
+.expo-shared/
+dist/
+build/
+
+# macOS specific files
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# iOS/Android (Bare Workflow の場合はコメントアウト)
+# ios/
+# android/
