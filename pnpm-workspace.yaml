@@ -1,2 +1,6 @@
 packages:
   - "apps/*"
+  - "packages/*"
+publicHoistPattern:
+  - "react"
+  - "react-native"

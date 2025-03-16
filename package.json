@@ -1,12 +1,11 @@
 {
-    "name": "pokemon-card-app",
-    "private": true,
-    "workspaces": [
-      "apps/*"
-    ],
-    "scripts": {
-      "dev:frontend": "cd apps/frontend && npx expo start",
-      "dev:backend": "cd apps/backend && bun run index.js"
-    }
+  "name": "pokemon-card-app",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:frontend": "cd apps/frontend && npx expo start",
+    "dev:backend": "cd apps/backend && bun run index.js"
   }
-  
+}
