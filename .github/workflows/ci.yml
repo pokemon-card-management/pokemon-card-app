@@ -1,0 +1,69 @@
+name: CI Pipeline
+
+on:
+  pull_request:
+    branches:
+      - main  # PR が main ブランチに対して作成されたときに実行
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # 使用する Node.js のバージョン
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
+
+    - name: Install dependencies
+      run: pnpm install
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Run ESLint
+      run: pnpm lint
+
+  test:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Run Jest tests (Frontend)
+      run: pnpm test --workspace=apps/frontend
+
+    - name: Run Bun tests (Backend)
+      run: pnpm test --workspace=apps/backend
