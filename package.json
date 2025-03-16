@@ -18,10 +18,5 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-react-hooks": "^5.2.0"
-  },
-  "dependencies": {
-    "expo-cli": "^6.3.10",
-    "metro": "^0.82.0",
-    "metro-config": "^0.82.0"
   }
 }
