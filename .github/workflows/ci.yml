@@ -18,6 +18,9 @@ jobs:
       with:
         node-version: '16'  # 使用する Node.js のバージョン
 
+    - name: Install pnpm
+      run: npm install -g pnpm  # pnpm をインストール
+
     - name: Cache dependencies
       uses: actions/cache@v3
       with:
@@ -41,6 +44,9 @@ jobs:
       with:
         node-version: '16'
 
+    - name: Install pnpm
+      run: npm install -g pnpm  # pnpm をインストール
+
     - name: Install dependencies
       run: pnpm install
 
@@ -58,6 +64,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '16'
+
+    - name: Install pnpm
+      run: npm install -g pnpm  # pnpm をインストール
 
     - name: Install dependencies
       run: pnpm install
