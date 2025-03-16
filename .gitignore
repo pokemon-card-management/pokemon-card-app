@@ -20,3 +20,4 @@ build/
 # iOS/Android (Bare Workflow の場合はコメントアウト)
 # ios/
 # android/
+node_modules
