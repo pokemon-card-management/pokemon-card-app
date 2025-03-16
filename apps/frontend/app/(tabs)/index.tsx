@@ -4,6 +4,8 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import Constants from "expo-constants";
+import PingScreen from '@/screens/PingScreen'; // ← 追加
 
 export default function HomeScreen() {
   return (
@@ -50,6 +52,13 @@ export default function HomeScreen() {
           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
         </ThemedText>
       </ThemedView>
+
+      {/* ここに PingScreen を追加！ */}
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 4: API Test</ThemedText>
+        <PingScreen />
+      </ThemedView>
+      
     </ParallaxScrollView>
   );
 }
@@ -72,3 +81,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
 });
+
+const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
+console.log("API URL:", API_BASE_URL); // ここでURLが正しく取得できているか確認
