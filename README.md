@@ -11,3 +11,9 @@ pnpm run dev:frontend
 ```zsh
 pnpm run dev:buckend
 ```
+
+## ブランチのお掃除
+
+```zsh
+git branch --merged | grep -vE '(main|develop|master)' | xargs -I {} git branch -d {} && git branch -r --merged origin/main | grep -vE 'origin/(main|develop|master)' | sed 's/origin\///' | xargs -I {} git push origin --delete {}
+```
