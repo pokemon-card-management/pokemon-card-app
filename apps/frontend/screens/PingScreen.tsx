@@ -6,7 +6,7 @@ export default function PingScreen() {
   const [message, setMessage] = useState("Loading...");
 
   useEffect(() => {
-    const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl;
+    const API_BASE_URL = Constants.expoConfig?.extra?.API_BASE_URL;
     console.log("API_BASE_URL:", API_BASE_URL); // APIのURL確認
 
     if (!API_BASE_URL) {

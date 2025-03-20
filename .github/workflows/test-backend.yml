@@ -1,0 +1,28 @@
+name: Backend Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Bun をセットアップ
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 依存関係をインストール
+        run: bun install
+
+      - name: テストを実行
+        run: bun test
