@@ -4,9 +4,9 @@
   "type": "module",
   "scripts": {
     "bun run serve": "bun run src/server.ts",
-    "test": "bun vitest",
-    "test:watch": "bun vitest --watch",
-    "test:coverage": "bun vitest --coverage"
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:coverage": "bun test --coverage"
   },
   "devDependencies": {
     "@types/bun": "latest",

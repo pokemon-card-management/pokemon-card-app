@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect, beforeAll, afterAll } from "bun:test";
 import { serve } from "bun";
 import request from "supertest";
 import app from "../../src/routes/ping";
