@@ -9,7 +9,7 @@ pnpm run dev:frontend
 ## apps/buckend の実行
 
 ```zsh
-pnpm run dev:buckend
+pnpm run dev:backend
 ```
 
 ## ブランチのお掃除
