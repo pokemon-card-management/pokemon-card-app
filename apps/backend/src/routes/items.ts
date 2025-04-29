@@ -5,7 +5,7 @@ import {
   createItem,
   updateItem,
   deleteItem,
-} from '../src/controllers/items'
+} from '../controllers/items'
 
 const router = new Hono()
 

@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { z, createRoute } from "@hono/zod-openapi";
-import { errorResponses } from "../schema/error.schema";
+import { errorResponses } from "../schemas/error.schema";
 
 const pingRouter = new Hono();
 
