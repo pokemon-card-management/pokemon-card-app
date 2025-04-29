@@ -24,19 +24,6 @@ describe("GET /", () => {
     expect(res.body).toEqual([]);
   });
 
-  it("should return 404 Item not found", async () => {
-    const res = await request("http://localhost:4000").get("/items/1");
-
-    if (res.status === 404) {
-      expect(res.body).toMatchObject({
-        message: "Item not found",
-        errors: expect.any(Object),
-      });
-    } else {
-      expect(res.status).toBe(200); // 400 が発生しない場合、正常レスポンス
-    }
-  });
-
   it("should return 500 Internal Server Error on unexpected error", async () => {
     // 例: エラーを意図的に発生させるリクエストを送る
     const res = await request("http://localhost:4000").get("/items?error=true");

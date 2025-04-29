@@ -1,8 +1,13 @@
 import { z } from 'zod'
 
-export const itemSchema = z.object({
-  name:       z.string().min(1),
-  description: z.string().optional(),
+export const ItemIdParamSchema = z.object({
+  id: z.string().uuid(),
 })
 
-export const itemPartialSchema = itemSchema.partial()
+export const ItemSchema = z.object({
+  name: z.string().min(1),
+})
+
+export const itemPartialSchema = ItemSchema.partial()
+
+export const ItemListSchema = z.array(ItemSchema)
