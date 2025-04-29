@@ -1,18 +1,13 @@
 import { Hono } from 'hono'
-import {
-  getAllItems,
-  getItemById,
-  createItem,
-  updateItem,
-  deleteItem,
-} from '../src/controllers/items'
+import router from '../src/routes/items'
+import { errorHandler } from './middlewares/errorHandler'
+import { cors } from 'hono/cors'
 
-const router = new Hono()
+const app = new Hono()
 
-router.get('/',      getAllItems)    // Read all
-router.get('/:id',   getItemById)    // Read one
-router.post('/',     createItem)     // Create
-router.put('/:id',   updateItem)     // Update
-router.delete('/:id', deleteItem)    // Delete
+app.use('*', cors())
+app.use('*', errorHandler)      // ←必ずルーティングよりも前に登録
 
-export default router
+app.route('/items', router)
+
+export default app

@@ -1,4 +1,5 @@
 import type { Context } from 'hono'
+import { HTTPException } from 'hono/http-exception'
 import { v4 as uuid } from 'uuid'
 import { z } from 'zod'
 import { itemSchema, itemPartialSchema } from '../schemas/item.schema'
@@ -13,7 +14,9 @@ export const getAllItems = (c: Context) => {
 export const getItemById = (c: Context) => {
   const id = c.req.param('id')
   const item = store.get(id)
-  if (!item) return c.json({ message: 'Not Found' }, 404)
+  if (!item) {
+    throw new HTTPException(404, 'Item not found')
+  }
   return c.json(item)
 }
 

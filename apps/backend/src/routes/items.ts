@@ -9,10 +9,11 @@ import {
 
 const router = new Hono()
 
-router.get('/',      getAllItems)    // Read all
-router.get('/:id',   getItemById)    // Read one
-router.post('/',     createItem)     // Create
-router.put('/:id',   updateItem)     // Update
-router.delete('/:id', deleteItem)    // Delete
+router.get('/', getAllItems)
+router.post('/', createItem)
+
+router.get('/:id', getItemById)
+router.put('/:id', updateItem)
+router.delete('/:id', deleteItem)
 
 export default router

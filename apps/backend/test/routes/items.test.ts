@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "bun:test";
 import { serve } from "bun";
 import request from "supertest";
-import app from "../../src/routes/ping";
+import app from "../../src/index";
 
 let server: any;
 
@@ -16,20 +16,20 @@ afterAll(() => {
   // Bun.serve は手動で停止しなくてもOK
 });
 
-describe("GET /ping", () => {
-  it("should return 200 and { message: 'pong' }", async () => {
-    const res = await request("http://localhost:4000").get("/ping");
+describe("GET /", () => {
+  it("should return 200 and { message: [] }", async () => {
+    const res = await request("http://localhost:4000").get("/items");
 
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({ message: "pong" });
+    expect(res.body).toEqual([]);
   });
 
-  it("should return 400 Bad Request in some cases", async () => {
-    const res = await request("http://localhost:4000").get("/ping");
+  it("should return 404 Item not found", async () => {
+    const res = await request("http://localhost:4000").get("/items/1");
 
-    if (res.status === 400) {
+    if (res.status === 404) {
       expect(res.body).toMatchObject({
-        message: "Bad Request",
+        message: "Item not found",
         errors: expect.any(Object),
       });
     } else {
@@ -39,7 +39,7 @@ describe("GET /ping", () => {
 
   it("should return 500 Internal Server Error on unexpected error", async () => {
     // 例: エラーを意図的に発生させるリクエストを送る
-    const res = await request("http://localhost:4000").get("/ping?error=true");
+    const res = await request("http://localhost:4000").get("/items?error=true");
 
     expect([200, 500]).toContain(res.status);
     if (res.status === 500) {
