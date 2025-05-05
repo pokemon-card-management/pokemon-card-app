@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
-import router from '../src/routes/items'
-import { errorHandler } from './middlewares/errorHandler'
+import router from 'routes/items'
+import { errorHandler } from 'middlewares/errorHandler'
 import { cors } from 'hono/cors'
 
 const app = new Hono()

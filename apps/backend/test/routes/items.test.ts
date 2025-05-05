@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from "bun:test";
 import { serve } from "bun";
 import request from "supertest";
-import app from "../../src/index";
+import app from "index";
 
 let server: any;
 

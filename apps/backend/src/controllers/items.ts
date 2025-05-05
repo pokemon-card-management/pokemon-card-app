@@ -1,13 +1,13 @@
 import type { Context } from 'hono'
 import { v4 as uuid } from 'uuid'
 import { z } from 'zod'
-import { ERRORS } from '../constants/errors'
-import { throwHttpError } from '../utils/httpErrors'
+import { ERRORS } from 'constants/errors'
+import { throwHttpError } from 'utils/httpErrors'
 import { 
   ItemSchema,
   ItemListSchema,
   itemPartialSchema
-} from '../schemas/item.schema'
+} from 'schemas/item.schema'
 
 // モックデータストア（実際は DB access 層を用意する）
 const store = new Map<string, z.infer<typeof ItemSchema>>()

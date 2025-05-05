@@ -1,4 +1,4 @@
-import type { ErrorInfo } from '../types/httpStatus'
+import type { ErrorInfo } from 'types/httpStatus'
 
 export const ERRORS: Record<string, ErrorInfo> = {
     ITEM_NOT_FOUND: {

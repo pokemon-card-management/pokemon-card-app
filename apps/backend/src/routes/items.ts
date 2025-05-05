@@ -5,9 +5,9 @@ import {
   createItem,
   updateItem,
   deleteItem,
-} from '../controllers/items'
+} from 'controllers/items'
 import { zValidator } from '@hono/zod-validator'
-import { ItemSchema, ItemIdParamSchema, itemPartialSchema } from '../schemas/item.schema'
+import { ItemSchema, ItemIdParamSchema, itemPartialSchema } from 'schemas/item.schema'
 
 const router = new Hono()
 
