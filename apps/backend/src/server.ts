@@ -1,10 +1,10 @@
 import { serve } from 'bun';
-import app from './index';
+import router from './index';
 
 const port = process.env.PORT || 3000;
 
 serve({
-  fetch: app.fetch,
+  fetch: router.fetch,
   port: Number(port),
 });
 
