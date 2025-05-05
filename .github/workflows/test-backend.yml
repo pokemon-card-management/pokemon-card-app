@@ -25,4 +25,5 @@ jobs:
         run: bun install
 
       - name: テストを実行
-        run: bun test apps/backend/test
+        working-directory: apps/backend/src
+        run: bun test
