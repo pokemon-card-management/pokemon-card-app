@@ -13,5 +13,9 @@ export const ERRORS: Record<string, ErrorInfo> = {
       status: 500,
       message: 'Invalid item structure'
     },
+    INVALID_ID: {
+      status: 500,
+      message: 'Invalid id structure'
+    },
   }
   
