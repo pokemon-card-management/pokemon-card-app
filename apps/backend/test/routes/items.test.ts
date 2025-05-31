@@ -2,10 +2,16 @@ import { describe, it, expect, beforeAll, afterAll } from "bun:test";
 import { serve } from "bun";
 import request from "supertest";
 import app from "index";
+import { createInMemoryDB } from 'db/memory.adapter'
+import { setDB } from 'services/item.service'
 
 let server: any;
 
-beforeAll(() => {
+beforeAll(async () => {
+  const mockDB = createInMemoryDB()
+  await mockDB.read()
+  mockDB.data ||= { items: [] }
+  setDB(mockDB),
   server = serve({
     fetch: app.fetch,
     port: 4000,

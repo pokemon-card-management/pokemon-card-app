@@ -1,0 +1,12 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "name1",
+      "description": "",
+      "price": null,
+      "createdAt": "2025-05-25T12:04:46.623Z",
+      "updatedAt": "2025-05-25T12:07:38.349Z"
+    }
+  ]
+}
