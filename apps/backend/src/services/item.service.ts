@@ -1,5 +1,10 @@
 import { itemRepository } from 'repositories/item.repository'
 import { ItemType } from 'schemas/item.schema'
+import { Low } from 'lowdb'
+
+type Data = {
+  items: ItemType[]
+}
 
 export const itemService = {
   getItems: async (): Promise<ItemType[]> => {
@@ -27,4 +32,10 @@ export const itemService = {
   deleteItem: async (id: number): Promise<boolean> => {
     return await itemRepository.delete(id)
   }
+}
+
+export let db: Low<Data>
+
+export const setDB = (_db: Low<Data>) => {
+  db = _db
 }
