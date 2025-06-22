@@ -1,56 +1,53 @@
-export const Colors = {
+// Pokemon Card Management デザインシステム準拠のカラーパレット
+import { THEME, POKEMON_TYPES, SEMANTIC } from './design';
+
+// 統合デザインシステムからのカラーエクスポート
+export const Colors = THEME;
+
+// Pokemon タイプカラー（互換性のため）
+export const PokemonColors = POKEMON_TYPES;
+
+// セマンティックカラー（互換性のため）
+export const SemanticColors = SEMANTIC;
+
+// 従来のAPI互換性のためのエイリアス
+export const LegacyColors = {
   light: {
-    primary: '#3498db',
-    secondary: '#2980b9',
-    background: '#ffffff',
-    surface: '#f8f9fa',
-    card: '#ffffff',
-    text: '#2c3e50',
-    textSecondary: '#7f8c8d',
-    border: '#e9ecef',
-    accent: '#e74c3c',
-    success: '#27ae60',
-    warning: '#f39c12',
-    error: '#e74c3c',
-    headerBackground: '#ffffff',
-    tabBackground: '#ffffff',
-    tabInactive: '#95a5a6',
+    primary: THEME.light.pokemon.primary,
+    secondary: THEME.light.text.secondary,
+    background: THEME.light.background.primary,
+    surface: THEME.light.surface.secondary,
+    card: THEME.light.surface.card,
+    text: THEME.light.text.primary,
+    textSecondary: THEME.light.text.secondary,
+    border: THEME.light.border.primary,
+    accent: THEME.light.pokemon.accent,
+    success: SEMANTIC.success,
+    warning: SEMANTIC.warning,
+    error: SEMANTIC.error,
+    headerBackground: THEME.light.surface.primary,
+    tabBackground: THEME.light.surface.primary,
+    tabInactive: THEME.light.text.tertiary,
   },
   dark: {
-    primary: '#3498db',
-    secondary: '#2980b9',
-    background: '#1a1a1a',
-    surface: '#2c2c2c',
-    card: '#333333',
-    text: '#ffffff',
-    textSecondary: '#bdc3c7',
-    border: '#404040',
-    accent: '#e74c3c',
-    success: '#27ae60',
-    warning: '#f39c12',
-    error: '#e74c3c',
-    headerBackground: '#2c2c2c',
-    tabBackground: '#2c2c2c',
-    tabInactive: '#7f8c8d',
+    primary: THEME.dark.pokemon.primary,
+    secondary: THEME.dark.text.secondary,
+    background: THEME.dark.background.primary,
+    surface: THEME.dark.surface.secondary,
+    card: THEME.dark.surface.card,
+    text: THEME.dark.text.primary,
+    textSecondary: THEME.dark.text.secondary,
+    border: THEME.dark.border.primary,
+    accent: THEME.dark.pokemon.accent,
+    success: SEMANTIC.success,
+    warning: SEMANTIC.warning,
+    error: SEMANTIC.error,
+    headerBackground: THEME.dark.surface.primary,
+    tabBackground: THEME.dark.surface.primary,
+    tabInactive: THEME.dark.text.tertiary,
   },
-  pokemon: {
-    fire: '#ff6b5a',
-    water: '#4fc3f7',
-    grass: '#66bb6a',
-    electric: '#ffeb3b',
-    psychic: '#ab47bc',
-    ice: '#4fc3f7',
-    dragon: '#5c6bc0',
-    dark: '#5d4037',
-    fairy: '#f8bbd9',
-    normal: '#9e9e9e',
-    fighting: '#d32f2f',
-    poison: '#9c27b0',
-    ground: '#8d6e63',
-    flying: '#90a4ae',
-    bug: '#689f38',
-    rock: '#795548',
-    ghost: '#7e57c2',
-    steel: '#607d8b',
-  },
+  pokemon: POKEMON_TYPES,
 };
+
+// デフォルトエクスポート（後方互換性のため）
+export default Colors;
