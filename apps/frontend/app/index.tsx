@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
-import { Colors } from '../src/constants/colors';
+
+import { Colors, Typography, Spacing } from '../src/constants/design';
 
 const REDIRECT_DELAY = 100; // ms
 
@@ -27,16 +28,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.dark.background,
+    backgroundColor: Colors.dark.background.primary,
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: Colors.dark.text,
-    marginBottom: 10,
+    ...Typography.title1,
+    fontWeight: '600',
+    color: Colors.dark.text.primary,
+    marginBottom: Spacing[3],
   },
   subtitle: {
-    fontSize: 16,
-    color: Colors.dark.textSecondary,
+    ...Typography.subheadline,
+    color: Colors.dark.text.secondary,
   },
 });
