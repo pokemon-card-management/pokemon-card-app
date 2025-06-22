@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet } from 'react-native';
+
 import { Colors } from '../src/constants/colors';
 
 const REDIRECT_DELAY = 100; // ms

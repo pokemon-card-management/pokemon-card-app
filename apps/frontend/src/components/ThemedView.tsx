@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, ViewStyle, StyleSheet } from 'react-native';
+import { View, ViewStyle } from 'react-native';
+
 import { Colors } from '../constants/colors';
 
 interface ThemedViewProps {
@@ -11,7 +12,7 @@ interface ThemedViewProps {
 
 export function ThemedView({ 
   style, 
-  lightColor, 
+  lightColor: _lightColor, 
   darkColor, 
   children,
   ...otherProps 
@@ -29,8 +30,3 @@ export function ThemedView({
   );
 }
 
-const styles = StyleSheet.create({
-  default: {
-    backgroundColor: Colors.dark.background,
-  },
-});

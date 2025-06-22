@@ -8,6 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { router } from 'expo-router';
+
 import { Colors } from '../src/constants/colors';
 
 export default function WelcomeScreen() {
