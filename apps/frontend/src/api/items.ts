@@ -1,6 +1,6 @@
 // src/api/items.ts
 import axios from 'axios'
-import { Item } from 'types'
+import { Item } from 'src/types'
 
 // ベースURLと共通設定
 const api = axios.create({
