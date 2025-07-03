@@ -9,3 +9,13 @@ export const throwHttpError = ({ status, message }: ErrorInfo): never => {
     }),
   })
 }
+
+// 認証関連エラー専用のヘルパー関数
+export const throwAuthError = (message: string, status: number): never => {
+  throw new HTTPException(status, {
+    message: JSON.stringify({
+      message,
+      status,
+    }),
+  })
+}

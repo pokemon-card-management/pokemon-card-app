@@ -11,9 +11,13 @@ mkdirSync(dbPath, { recursive: true })
 
 const adapter = new JSONFile<Data>(join(dbPath, 'items.json'))
 const defaultData: Data = { items: [] }
-const db = new Low(adapter, defaultData)
+let db = new Low(adapter, defaultData)
 
 await db.read()
+
+export const setItemDB = (newDB: Low<Data>) => {
+  db = newDB
+}
 
 export const itemRepository = {
   findAll: async (): Promise<ItemType[]> => {

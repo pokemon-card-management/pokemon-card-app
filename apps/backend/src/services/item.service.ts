@@ -1,4 +1,4 @@
-import { itemRepository } from 'repositories/item.repository'
+import { itemRepository, setItemDB } from 'repositories/item.repository'
 import { ItemType } from 'schemas/item.schema'
 import { Low } from 'lowdb'
 
@@ -38,4 +38,5 @@ export let db: Low<Data>
 
 export const setDB = (_db: Low<Data>) => {
   db = _db
+  setItemDB(_db)
 }

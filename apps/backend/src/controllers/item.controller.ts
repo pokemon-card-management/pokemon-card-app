@@ -53,10 +53,10 @@ export const createItem = async (c: Context) => {
 }
 
 export const updateItem = async (c: Context) => {
-  const id: number = validateWithSchema(IdParamSchema, c.req.param('id'), ERRORS.INVALID_ITEM_SHAPE)
+  const id: number = validateWithSchema(IdParamSchema, c.req.param('id'), ERRORS.INVALID_ID)
   const data: UpdateItemType = validateWithSchema(UpdateItemSchema, await c.req.json(), ERRORS.INVALID_ITEM_SHAPE)
 
-  const item = itemService.getItemById(id)
+  const item = await itemService.getItemById(id)
   if (!item) {
     throwHttpError(ERRORS.ITEM_NOT_FOUND)
   }
@@ -66,14 +66,14 @@ export const updateItem = async (c: Context) => {
   return c.json(updatedItem)
 }
 
-export const deleteItem = (c: Context) => {
-  const id: number = validateWithSchema(IdParamSchema, c.req.param('id'), ERRORS.INVALID_ITEM_SHAPE)
+export const deleteItem = async (c: Context) => {
+  const id: number = validateWithSchema(IdParamSchema, c.req.param('id'), ERRORS.INVALID_ID)
 
-  const item = itemService.getItemById(id)
+  const item = await itemService.getItemById(id)
   if (!item) {
     throwHttpError(ERRORS.ITEM_NOT_FOUND)
   }
-  itemService.deleteItem(id)
+  await itemService.deleteItem(id)
   return c.body(null, 204)
 }
 

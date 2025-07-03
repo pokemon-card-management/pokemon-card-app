@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "PikachuTrainer",
+      "email": "pikachu@example.com",
+      "password": "$2b$12$tyoVRP9NgYqqLeOR0Wxwi.GEODM6hF0d9B8PwYthnuwB0uGgF0d8C",
+      "createdAt": "2024-06-01T12:00:00.000Z",
+      "updatedAt": "2024-06-01T12:00:00.000Z"
+    }
+  ]
+}
