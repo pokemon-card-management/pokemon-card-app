@@ -16,27 +16,20 @@ jobs:
       - name: リポジトリをチェックアウト
         uses: actions/checkout@v4
 
-      - name: Bun をセットアップ
-        uses: oven-sh/setup-bun@v1
+      - name: Node.js をセットアップ
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '18'
+
+      - name: pnpm をセットアップ
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
 
       - name: 依存関係をインストール
-        run: |
-          bun install
-          cd apps/backend
-          bun install
-
-      - name: ファイル構造を確認
-        working-directory: apps/backend
-        run: |
-          echo "=== Backend directory structure ==="
-          find . -type f -name "*.ts" | head -20
-          echo "=== Checking errorHandler.ts ==="
-          ls -la src/middlewares/errorHandler.ts || echo "errorHandler.ts not found"
-          echo "=== Current directory ==="
-          pwd
+        run: pnpm install
 
       - name: テストを実行
-        working-directory: apps/backend
-        run: bun test
+        run: |
+          cd apps/backend
+          npm test
