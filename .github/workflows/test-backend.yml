@@ -23,6 +23,7 @@ jobs:
 
       - name: 依存関係をインストール
         run: |
+          bun install
           cd apps/backend
           bun install
 
