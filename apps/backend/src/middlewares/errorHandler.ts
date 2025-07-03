@@ -8,9 +8,14 @@ export const errorHandler = async (c: Context, next: Next) => {
     console.error('Error caught in middleware:', err)
 
     if (err instanceof HTTPException) {
-      const res = err.getResponse()
-      const body = await res.json().catch(() => null)
-      return c.json(body || { message: err.message }, err.status)
+      try {
+        // throwHttpErrorから来るエラーの場合、messageはJSON文字列
+        const parsedMessage = JSON.parse(err.message)
+        return c.json(parsedMessage, err.status)
+      } catch {
+        // JSON.parseに失敗した場合は、通常のメッセージとして扱う
+        return c.json({ message: err.message }, err.status)
+      }
     }
 
     return c.json({ message: 'Internal Server Error' }, 500)

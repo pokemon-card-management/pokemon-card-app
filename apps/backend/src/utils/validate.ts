@@ -17,7 +17,7 @@ export function validateWithSchema<T>(
 ): T {
   const result = schema.safeParse(value)
   if (!result.success) {
-     console.error(result.error.format())
+    console.error(result.error.format())
     throwHttpError(errorToThrow)
   }
 
