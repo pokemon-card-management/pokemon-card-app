@@ -22,7 +22,9 @@ jobs:
           bun-version: latest
 
       - name: 依存関係をインストール
-        run: bun install
+        run: |
+          cd apps/backend
+          bun install
 
       - name: テストを実行
         working-directory: apps/backend
