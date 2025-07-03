@@ -16,20 +16,14 @@ jobs:
       - name: リポジトリをチェックアウト
         uses: actions/checkout@v4
 
-      - name: Node.js をセットアップ
-        uses: actions/setup-node@v4
+      - name: Bun をセットアップ
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version: '18'
-
-      - name: pnpm をセットアップ
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+          bun-version: latest
 
       - name: 依存関係をインストール
-        run: pnpm install
+        run: bun install
 
       - name: テストを実行
-        run: |
-          cd apps/backend
-          npm test
+        working-directory: apps/backend
+        run: bun test
