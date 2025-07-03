@@ -10,12 +10,16 @@ export const ERRORS: Record<string, ErrorInfo> = {
       message: 'Unauthorized access',
     },
     INVALID_ITEM_SHAPE: {
-      status: 500,
+      status: 400,
       message: 'Invalid item structure'
     },
     INVALID_ID: {
-      status: 500,
+      status: 400,
       message: 'Invalid id structure'
+    },
+    INVALID_AUTH_REQUEST: {
+      status: 400,
+      message: 'Invalid authentication request'
     },
   }
   

@@ -22,8 +22,21 @@ jobs:
           bun-version: latest
 
       - name: 依存関係をインストール
-        run: bun install
+        run: |
+          bun install
+          cd apps/backend
+          bun install
+
+      - name: ファイル構造を確認
+        working-directory: apps/backend
+        run: |
+          echo "=== Current directory ==="
+          pwd
+          echo "=== Backend files ==="
+          find . -name "*.ts" | head -20
+          echo "=== Checking errorHandler.ts ==="
+          ls -la src/middlewares/errorHandler.ts || echo "errorHandler.ts not found"
 
       - name: テストを実行
-        working-directory: apps/backend/src
+        working-directory: apps/backend
         run: bun test
