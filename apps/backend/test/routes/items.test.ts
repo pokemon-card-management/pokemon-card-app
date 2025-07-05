@@ -139,9 +139,8 @@ describe("Items API", () => {
       
       expect(res.status).toBe(400);
       const body = parseResponseBody(res);
-      // エラーレスポンスの形式をチェック（messageまたは_errorsのいずれか）
-      const hasErrorProperty = body.hasOwnProperty("message") || body.hasOwnProperty("_errors");
-      expect(hasErrorProperty).toBe(true);
+      expect(body.message).toBeDefined();
+      expect(body.status).toBe(400);
     });
 
     it("バリデーションエラー（空の名前）", async () => {
