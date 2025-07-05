@@ -11,7 +11,9 @@
 - 言語: TypeScript (strict)
 - フレームワーク: Bun + Hono
 - テストランナー: bun:test
-- モック・ユーティリティ: vi.mock, supertest, msw, faker, zod
+- テスト方式: app.fetch() による直接呼び出し（SuperTest不使用）
+- モック・ユーティリティ: vi.mock, msw, faker, zod
+- 共通設定: test/config.ts で環境変数やベースURL等を集約管理
 - カバレッジレポート: bun test --coverage
 
 ## ✅ テストの基本分類と優先度
@@ -62,10 +64,12 @@ apps/
     │   │   └── card.controller.ts
     │   └── ...
     └── test/
+        ├── config.ts               # テスト共通設定（BASE_URL等）
         ├── controllers/
         │   └── card.controller.test.ts
-        └── api/
-            └── card.api.test.ts
+        └── routes/
+            ├── card.test.ts        # app.fetch()を使用したAPIテスト
+            └── auth.test.ts
 ```
 
 ### 命名規則
@@ -77,6 +81,28 @@ describe("createCard", () => {
   it("should create a card when valid data is provided", ...)
   it("should throw if name is missing", ...)
 });
+```
+
+### APIテストの実装方式
+- **app.fetch()による直接呼び出し**：SuperTestの代わりにHonoアプリを直接呼び出し
+- **テスト設定の統一**：`test/config.ts`でベースURLや環境変数を管理
+- **レスポンスパース**：204（No Content）やエラー時の適切なレスポンス処理
+
+```typescript
+// test/config.ts
+export const TEST_CONFIG = {
+  BASE_URL: process.env.TEST_BASE_URL || "http://localhost:3000"
+};
+
+// テスト例
+import { TEST_CONFIG } from '../config';
+import app from 'src/index';
+
+const res = await app.fetch(new Request(`${TEST_CONFIG.BASE_URL}/items`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(testData)
+}));
 ```
 
 ### モック戦略
@@ -120,6 +146,9 @@ Claudeへ依頼：
 - [ ] 失敗系（404, 401, 422など）を網羅
 - [ ] 認証・認可のテストがある
 - [ ] 型・バリデーションに対するテストがある
+- [ ] app.fetch()を使用したAPIテストを実装している
+- [ ] test/config.tsから設定を読み込んでいる
+- [ ] 204 No Contentやエラーレスポンスを適切に処理している
 - [ ] モックを適切に使っている
 - [ ] describe/itの命名が明確
 - [ ] データはfakerなどで生成している
