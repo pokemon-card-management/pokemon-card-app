@@ -2,12 +2,13 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import app from '../../src/index';
 import { AUTH_ERROR_CODES } from '../../src/constants/auth';
 import { HttpStatus } from '../../src/types/httpStatus';
+import { TEST_CONFIG } from '../config';
 
 describe('Auth API', () => {
   describe('POST /auth/signin', () => {
     describe('正常系', () => {
       it('正しい認証情報でサインインできる', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ describe('Auth API', () => {
           password: 'pikachuPokemon1234!'
         };
 
-        const req1 = new Request('http://localhost/auth/signin', {
+        const req1 = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -47,7 +48,7 @@ describe('Auth API', () => {
           body: JSON.stringify(requestBody)
         });
 
-        const req2 = new Request('http://localhost/auth/signin', {
+        const req2 = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ describe('Auth API', () => {
 
     describe('異常系 - 認証エラー', () => {
       it('存在しないメールアドレスでサインインに失敗する', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -97,7 +98,7 @@ describe('Auth API', () => {
       });
 
       it('間違ったパスワードでサインインに失敗する', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -119,7 +120,7 @@ describe('Auth API', () => {
 
     describe('異常系 - バリデーションエラー', () => {
       it('メールアドレスが空文字の場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -138,7 +139,7 @@ describe('Auth API', () => {
       });
 
       it('パスワードが空文字の場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -157,7 +158,7 @@ describe('Auth API', () => {
       });
 
       it('不正なメールアドレス形式の場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -176,7 +177,7 @@ describe('Auth API', () => {
       });
 
       it('メールアドレスが欠損している場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -194,7 +195,7 @@ describe('Auth API', () => {
       });
 
       it('パスワードが欠損している場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -212,7 +213,7 @@ describe('Auth API', () => {
       });
 
       it('リクエストボディが空の場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -230,7 +231,7 @@ describe('Auth API', () => {
 
     describe('異常系 - HTTPエラー', () => {
       it('Content-Typeが不正な場合でも正常に処理される', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'text/plain',
@@ -246,7 +247,7 @@ describe('Auth API', () => {
       });
 
       it('不正なJSONの場合エラーを返す', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -265,7 +266,7 @@ describe('Auth API', () => {
 
     describe('境界値テスト', () => {
       it('最小長のパスワードでサインインできる', async () => {
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -282,7 +283,7 @@ describe('Auth API', () => {
 
       it('長いメールアドレスでサインインできる', async () => {
         const longEmail = 'a'.repeat(50) + '@example.com';
-        const req = new Request('http://localhost/auth/signin', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -309,7 +310,7 @@ describe('Auth API', () => {
 
     beforeAll(async () => {
       // まずサインインしてトークンを取得
-      const signInReq = new Request('http://localhost/auth/signin', {
+      const signInReq = new Request(`${TEST_CONFIG.BASE_URL}/auth/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -327,7 +328,7 @@ describe('Auth API', () => {
 
     describe('正常系', () => {
       it('有効なトークンでプロフィールを取得できる', async () => {
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${authToken}`,
@@ -349,14 +350,14 @@ describe('Auth API', () => {
       });
 
       it('冪等性：同じトークンで複数回プロフィールを取得しても同じ結果が得られる', async () => {
-        const req1 = new Request('http://localhost/auth/profile', {
+        const req1 = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${authToken}`,
           },
         });
 
-        const req2 = new Request('http://localhost/auth/profile', {
+        const req2 = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${authToken}`,
@@ -384,7 +385,7 @@ describe('Auth API', () => {
 
     describe('異常系 - 認証エラー', () => {
       it('トークンなしでプロフィール取得に失敗する', async () => {
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
         });
 
@@ -400,7 +401,7 @@ describe('Auth API', () => {
       });
 
       it('無効なトークンでプロフィール取得に失敗する', async () => {
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer invalid-token',
@@ -416,7 +417,7 @@ describe('Auth API', () => {
       });
 
       it('Bearer形式でないトークンでプロフィール取得に失敗する', async () => {
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': authToken,
@@ -432,7 +433,7 @@ describe('Auth API', () => {
       });
 
       it('空のAuthorizationヘッダーでプロフィール取得に失敗する', async () => {
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': '',
@@ -448,7 +449,7 @@ describe('Auth API', () => {
       });
 
       it('Bearer のみでトークンが空の場合プロフィール取得に失敗する', async () => {
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ',
@@ -467,7 +468,7 @@ describe('Auth API', () => {
     describe('セキュリティテスト', () => {
       it('改ざんされたトークンでプロフィール取得に失敗する', async () => {
         const tamperedToken = authToken.slice(0, -5) + 'xxxxx';
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${tamperedToken}`,
@@ -486,7 +487,7 @@ describe('Auth API', () => {
         // 実際の期限切れトークンのテストは、モックやテスト用のトークンを使用して実装
         // ここではサンプルとして古いトークン形式を使用
         const expiredToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
-        const req = new Request('http://localhost/auth/profile', {
+        const req = new Request(`${TEST_CONFIG.BASE_URL}/auth/profile`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${expiredToken}`,
