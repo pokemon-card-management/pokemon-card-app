@@ -1,0 +1,162 @@
+name: E2E Tests (Maestro) - Free Plan
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/frontend/**'
+      - '.maestro/**'
+      - '.github/workflows/e2e-tests.yml'
+  workflow_dispatch:
+    inputs:
+      test-type:
+        description: 'Test execution type'
+        required: true
+        default: 'local'
+        type: choice
+        options:
+          - local
+          - cloud
+      platform:
+        description: 'Platform to test'
+        required: true
+        default: 'android'
+        type: choice
+        options:
+          - android
+          - ios
+
+env:
+  NODE_VERSION: '20'
+  PNPM_VERSION: '8'
+
+jobs:
+  # ローカルEmulator/Simulator でのテスト (無料プラン対応)
+  local-e2e-test:
+    name: Local E2E Test (Free Plan)
+    runs-on: ${{ matrix.os }}
+    if: github.event.inputs.test-type != 'cloud' || github.event.inputs.test-type == ''
+    
+    strategy:
+      matrix:
+        os: [ubuntu-latest]  # Androidのみ無料プランで実行
+        include:
+          - os: ubuntu-latest
+            platform: android
+    
+    steps:
+      - name: 🏗 リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 🏗 Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: 📦 pnpm をセットアップ
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: ☕ Java をセットアップ
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🤖 Android SDK をセットアップ
+        uses: android-actions/setup-android@v3
+
+      - name: 📦 依存関係をインストール
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔧 Expo Development Build用設定
+        working-directory: apps/frontend
+        run: |
+          # Development Client導入
+          npx expo install expo-dev-client
+          
+          # Metro設定更新
+          npx expo customize metro.config.js
+
+      - name: 🚀 React Native Development Buildを作成
+        working-directory: apps/frontend
+        run: |
+          # Android Development Build (無料)
+          npx expo run:android --variant debug
+
+      - name: 🎭 Maestro をセットアップ
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: 🤖 Android Emulatorを起動
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: default
+          arch: x86_64
+          profile: Nexus 6
+          script: |
+            echo "Android Emulator started"
+            adb devices
+
+      - name: 🧪 Maestro E2Eテストを実行 (ローカル)
+        run: |
+          # エミュレータでアプリを起動
+          adb install apps/frontend/android/app/build/outputs/apk/debug/app-debug.apk
+          
+          # Maestroテスト実行
+          maestro test .maestro/smoke.yml
+          maestro test .maestro/auth.yml
+
+  # Maestro Cloud テスト (オプション)
+  maestro-cloud:
+    name: Maestro Cloud Tests (Optional)
+    runs-on: ubuntu-latest
+    if: github.event.inputs.test-type == 'cloud' && github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: 🏗 リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 🏗 Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: 📦 pnpm をセットアップ
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: 📦 依存関係をインストール
+        run: pnpm install --frozen-lockfile
+
+      - name: 🔧 Expo Development Build用設定
+        working-directory: apps/frontend
+        run: |
+          # Development Client導入
+          npx expo install expo-dev-client
+
+      - name: 🚀 Expo Development Build作成
+        working-directory: apps/frontend
+        run: |
+          # Expo Development Build (無料)
+          npx expo run:android --variant debug
+
+      - name: 🎭 Maestro Cloud でテスト実行 (オプション)
+        if: github.event.inputs.test-type == 'cloud'
+        run: |
+          # Maestro Cloud CLI使用 (APIキーが設定されている場合)
+          if [ -n "${{ secrets.MAESTRO_CLOUD_API_KEY }}" ]; then
+            export MAESTRO_CLOUD_API_KEY="${{ secrets.MAESTRO_CLOUD_API_KEY }}"
+            maestro cloud apps/frontend/android/app/build/outputs/apk/debug/app-debug.apk .maestro/
+          else
+            echo "MAESTRO_CLOUD_API_KEY が設定されていません。ローカルテストを実行します"
+            maestro test .maestro/smoke.yml
+            maestro test .maestro/auth.yml
+          fi

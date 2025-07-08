@@ -2,12 +2,18 @@
   "type": "module",
   "name": "pokemon-card-app",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
   "scripts": {
     "dev:frontend": "cd apps/frontend && npx expo start",
     "dev:backend": "cd apps/backend && pnpm run serve",
+    "build:frontend:ios": "cd apps/frontend && eas build --platform ios",
+    "build:frontend:android": "cd apps/frontend && eas build --platform android",
+    "build:frontend:all": "cd apps/frontend && eas build --platform all",
+    "build:frontend:dev:ios": "cd apps/frontend && eas build --profile development --platform ios",
+    "build:frontend:dev:ios:local": "cd apps/frontend && eas build --profile development --platform ios --local",
+    "build:frontend:dev:android": "cd apps/frontend && eas build --profile development --platform android",
+    "build:frontend:dev:android:local": "cd apps/frontend && eas build --profile development --platform android --local",
+    "build:frontend:preview": "cd apps/frontend && eas build --profile preview",
+    "build:frontend:production": "cd apps/frontend && eas build --profile production",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },

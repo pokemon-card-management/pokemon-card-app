@@ -1,0 +1,11 @@
+appId: host.exp.Exponent
+tags:
+  - smoke
+---
+# スモークテスト: アプリの基本機能確認
+# 既にExpo Goで開発中のアプリが起動中の場合
+- assertVisible: "サインイン"
+- assertVisible: "アカウントにログインしてください"
+- assertVisible: "メールアドレス"
+- assertVisible: "パスワード"
+- assertVisible: "テスト用認証情報"

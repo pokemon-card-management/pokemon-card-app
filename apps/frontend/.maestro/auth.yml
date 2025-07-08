@@ -1,0 +1,28 @@
+appId: host.exp.Exponent
+tags:
+  - auth
+  - critical
+---
+# 認証フローテスト
+- launchApp
+- assertVisible: "サインイン"
+
+# テスト認証情報を使用してログイン
+- tapOn: "pikachu@example.com"
+- assertVisible: 
+    id: "emailInput"
+    text: "pikachu@example.com"
+
+- tapOn: "pikachuPokemon1234!"
+- assertVisible:
+    id: "passwordInput"
+
+- tapOn:
+    id: "signInButton"
+
+# ローディング状態の確認
+- assertVisible: "処理中..."
+
+# ホーム画面への遷移確認
+- assertVisible: "ホーム"
+- assertVisible: "ポケモンカード管理"

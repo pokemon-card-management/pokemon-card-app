@@ -1,0 +1,31 @@
+appId: host.exp.Exponent
+tags:
+  - navigation
+  - ui
+---
+# ナビゲーションテスト
+- launchApp
+- assertVisible: "サインイン"
+
+# 認証を通してホーム画面に移動
+- tapOn: "pikachu@example.com"
+- tapOn: "pikachuPokemon1234!"
+- tapOn:
+    id: "signInButton"
+
+# ホーム画面での操作
+- assertVisible: "ホーム"
+
+# 入力フィールドのフォーカステスト
+- runFlow:
+    when:
+      visible: "メールアドレス"
+    commands:
+      - tapOn:
+          id: "emailInput"
+      - inputText: "test@example.com"
+      - hideKeyboard
+
+# 画面外タップでキーボード非表示テスト
+- tapOn: "サインイン"
+- assertNotVisible: keyboard

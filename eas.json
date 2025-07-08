@@ -1,0 +1,33 @@
+{
+  "cli": {
+    "version": ">= 16.13.4",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "ANDROID_HOME": "/Users/naosuzuki/Library/Android/sdk",
+        "ANDROID_SDK_ROOT": "/Users/naosuzuki/Library/Android/sdk"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "ANDROID_HOME": "/Users/naosuzuki/Library/Android/sdk",
+        "ANDROID_SDK_ROOT": "/Users/naosuzuki/Library/Android/sdk"
+      }
+    },
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "ANDROID_HOME": "/Users/naosuzuki/Library/Android/sdk",
+        "ANDROID_SDK_ROOT": "/Users/naosuzuki/Library/Android/sdk"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

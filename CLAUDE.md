@@ -88,6 +88,25 @@ pnpm run dev:frontend
 pnpm run dev:backend
 ```
 
+### フロントエンドビルド
+```bash
+# プラットフォーム別ビルド
+pnpm run build:frontend:ios          # iOS向けビルド
+pnpm run build:frontend:android      # Android向けビルド
+pnpm run build:frontend:all          # 両プラットフォーム向けビルド
+
+# プロファイル別ビルド
+pnpm run build:frontend:dev          # 開発ビルド
+pnpm run build:frontend:preview      # プレビュービルド
+pnpm run build:frontend:production   # 本番ビルド
+```
+
+#### ビルド前提条件
+- EAS CLIのインストール: `npm install -g eas-cli`
+- EAS CLIへのログイン: `eas login`
+- プロジェクトの初期設定: `eas build:configure`
+- Apple Developer Program（iOS）またはGoogle Play Developer（Android）のアカウントが必要
+
 ### テスト
 ```bash
 # バックエンドテスト

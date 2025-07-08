@@ -1,0 +1,45 @@
+{
+  "cli": {
+    "version": ">= 5.2.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk",
+        "image": "latest"
+      },
+      "ios": {
+        "simulator": false
+      },
+      "node": "22.9.0",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "cache": {
+        "disabled": true
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {},
+    "e2e-test": {
+      "withoutCredentials": true,
+      "ios": {
+        "simulator": true,
+        "buildConfiguration": "Debug"
+      },
+      "android": {
+        "buildType": "apk",
+        "image": "latest",
+        "gradleCommand": ":app:assembleDebug"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
