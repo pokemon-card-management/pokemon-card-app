@@ -15,6 +15,13 @@ build/
 .env.local
 .env.*.local
 
+# Test coverage reports
+coverage/
+**/coverage/
+
 # iOS/Android (Bare Workflow の場合はコメントアウト)
 # ios/
 # android/
+
+# Claude Code personal settings
+.claude/settings.local.json

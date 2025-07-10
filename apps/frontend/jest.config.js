@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   testEnvironment: 'jsdom',
   testMatch: ['**/__tests__/**/*.(js|ts|tsx)'],
   transform: {

@@ -41,11 +41,10 @@ jobs:
 
       - name: 📦 依存関係をインストール
         run: |
-          cd ../..
           pnpm install --frozen-lockfile
 
       - name: 🔍 TypeScript型チェック
-        run: npx tsc --noEmit
+        run: pnpm tsc --noEmit
 
       - name: 🧹 ESLint チェック
         run: pnpm run lint
@@ -92,7 +91,6 @@ jobs:
 
       - name: 📦 依存関係をインストール
         run: |
-          cd ../..
           pnpm install --frozen-lockfile
 
       - name: 🚀 Expo プリビルドチェック
@@ -115,5 +113,4 @@ jobs:
 
       - name: 🔒 脆弱性スキャン
         run: |
-          cd ../..
           pnpm audit --audit-level moderate
