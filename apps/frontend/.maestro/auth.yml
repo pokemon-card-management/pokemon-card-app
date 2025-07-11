@@ -4,7 +4,7 @@ tags:
   - critical
 ---
 # 認証フローテスト
-- launchApp
+- openLink: exp://127.0.0.1:8081
 - assertVisible: "サインイン"
 
 # テスト認証情報を使用してログイン

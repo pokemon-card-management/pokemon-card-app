@@ -4,7 +4,7 @@ tags:
   - ui
 ---
 # ナビゲーションテスト
-- launchApp
+- openLink: exp://127.0.0.1:8081
 - assertVisible: "サインイン"
 
 # 認証を通してホーム画面に移動
@@ -16,16 +16,12 @@ tags:
 # ホーム画面での操作
 - assertVisible: "ホーム"
 
-# 入力フィールドのフォーカステスト
-- runFlow:
-    when:
-      visible: "メールアドレス"
-    commands:
-      - tapOn:
-          id: "emailInput"
-      - inputText: "test@example.com"
-      - hideKeyboard
-
-# 画面外タップでキーボード非表示テスト
-- tapOn: "サインイン"
-- assertNotVisible: keyboard
+# タブナビゲーションのテスト
+- tapOn: "アイテム"
+- assertVisible: "アイテム一覧"
+- tapOn: "プロフィール"
+- assertVisible: "プロフィール"
+- tapOn: "設定"
+- assertVisible: "設定"
+- tapOn: "ホーム"
+- assertVisible: "ホーム"

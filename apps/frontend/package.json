@@ -13,12 +13,10 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:debug": "jest --verbose",
-    "test:e2e": "detox test",
-    "test:maestro": "export PATH=\"$PATH:$HOME/.maestro/bin\" && export JAVA_HOME='/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home' && maestro test .maestro/",
-    "test:maestro:smoke": "export PATH=\"$PATH:$HOME/.maestro/bin\" && export JAVA_HOME='/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home' && maestro test .maestro/smoke.yml",
-    "test:maestro:auth": "export PATH=\"$PATH:$HOME/.maestro/bin\" && export JAVA_HOME='/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home' && maestro test .maestro/auth.yml",
-    "build:e2e:ios": "detox build --configuration ios.sim.debug",
-    "build:e2e:android": "detox build --configuration android.emu.debug"
+    "test:e2e": "maestro test .maestro/",
+    "test:maestro": "maestro test .maestro/",
+    "test:maestro:smoke": "maestro test .maestro/smoke.yml",
+    "test:maestro:auth": "maestro test .maestro/auth.yml"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -67,17 +65,5 @@
   "engines": {
     "node": ">=20.17.0",
     "npm": ">=8.0.0"
-  },
-  "detox": {
-    "configurations": {
-      "ios.sim.debug": {
-        "device": "simulator",
-        "app": "ios.debug"
-      },
-      "android.emu.debug": {
-        "device": "emulator",
-        "app": "android.debug"
-      }
-    }
   }
 }

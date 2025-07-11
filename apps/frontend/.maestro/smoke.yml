@@ -3,9 +3,11 @@ tags:
   - smoke
 ---
 # スモークテスト: アプリの基本機能確認
-# 既にExpo Goで開発中のアプリが起動中の場合
-- assertVisible: "サインイン"
-- assertVisible: "アカウントにログインしてください"
-- assertVisible: "メールアドレス"
-- assertVisible: "パスワード"
-- assertVisible: "テスト用認証情報"
+# Expo開発環境での実行
+- openLink: exp://127.0.0.1:8081
+- assertVisible: "ホーム画面へ"
+- tapOn: "ホーム画面へ"
+- assertVisible: "ホーム"
+- assertVisible: "アイテム"
+- assertVisible: "プロフィール"
+- assertVisible: "設定"
