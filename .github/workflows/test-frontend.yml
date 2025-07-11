@@ -132,4 +132,4 @@ jobs:
 
       - name: 🔒 脆弱性スキャン
         run: |
-          pnpm --filter frontend audit --audit-level moderate
+          pnpm audit --audit-level moderate
