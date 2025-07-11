@@ -51,7 +51,7 @@ jobs:
         run: pnpm --filter frontend run lint
 
       - name: 🧪 Jest単体テストを実行
-        run: pnpm --filter frontend test --coverage
+        run: pnpm run test:frontend:coverage
 
       - name: 📊 テストカバレッジをアップロード
         uses: codecov/codecov-action@v4

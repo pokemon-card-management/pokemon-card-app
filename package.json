@@ -5,6 +5,7 @@
   "scripts": {
     "dev:frontend": "cd apps/frontend && npx expo start",
     "dev:backend": "cd apps/backend && pnpm run serve",
+    "test:frontend:coverage": "cd apps/frontend && jest --coverage",
     "build:frontend:ios": "cd apps/frontend && eas build --platform ios",
     "build:frontend:android": "cd apps/frontend && eas build --platform android",
     "build:frontend:all": "cd apps/frontend && eas build --platform all",
