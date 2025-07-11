@@ -2,22 +2,30 @@
   "type": "module",
   "name": "pokemon-card-app",
   "private": true,
-  "workspaces": [
-    "apps/*"
-  ],
   "scripts": {
     "dev:frontend": "cd apps/frontend && npx expo start",
     "dev:backend": "cd apps/backend && pnpm run serve",
+    "test:frontend:coverage": "cd apps/frontend && pnpm jest --coverage",
+    "build:frontend:ios": "cd apps/frontend && eas build --platform ios",
+    "build:frontend:android": "cd apps/frontend && eas build --platform android",
+    "build:frontend:all": "cd apps/frontend && eas build --platform all",
+    "build:frontend:dev:ios": "cd apps/frontend && eas build --profile development --platform ios",
+    "build:frontend:dev:ios:local": "cd apps/frontend && eas build --profile development --platform ios --local",
+    "build:frontend:dev:android": "cd apps/frontend && eas build --profile development --platform android",
+    "build:frontend:dev:android:local": "cd apps/frontend && eas build --profile development --platform android --local",
+    "build:frontend:preview": "cd apps/frontend && eas build --profile preview",
+    "build:frontend:production": "cd apps/frontend && eas build --profile production",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.26.1",
-    "@typescript-eslint/parser": "^8.26.1",
-    "eslint": "^9.22.0",
+    "@eslint/js": "^9.30.1",
+    "@typescript-eslint/eslint-plugin": "^8.36.0",
+    "@typescript-eslint/parser": "^8.36.0",
+    "eslint": "^9.30.1",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0"
   }
 }

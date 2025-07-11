@@ -1,0 +1,135 @@
+name: Frontend Tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/frontend/**'
+      - '.github/workflows/test-frontend.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/frontend/**'
+      - '.github/workflows/test-frontend.yml'
+
+jobs:
+  unit-tests:
+    name: Frontend Unit Tests
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: 🏗 リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 📦 pnpm をセットアップ
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: 🏗 Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+
+      - name: 📦 依存関係をインストール
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: 🔍 TypeScript型チェック
+        run: pnpm --filter frontend tsc --noEmit
+
+      - name: 🧹 ESLint チェック
+        run: pnpm --filter frontend run lint
+
+      - name: 🧪 Jest単体テストを実行
+        run: pnpm run test:frontend:coverage
+
+      - name: 📊 テストカバレッジをアップロード
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./apps/frontend/coverage/lcov.info
+          flags: frontend
+          name: frontend-coverage
+          fail_ci_if_error: false
+
+  build-check:
+    name: Frontend Build Check
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: 🏗 リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 📦 pnpm をセットアップ
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: 🏗 Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: 🏗 Expo をセットアップ
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 依存関係をインストール
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: 🚀 Expo プリビルドチェック
+        run: pnpm --filter frontend exec expo install --check
+
+      - name: 🔧 Metro Bundlerでビルドチェック
+        run: pnpm --filter frontend exec expo export --platform web --clear
+
+  security-scan:
+    name: Frontend Security Scan
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: .
+
+    steps:
+      - name: 🏗 リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 📦 pnpm をセットアップ
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+
+      - name: 🏗 Node.js をセットアップ
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+
+      - name: 📦 依存関係をインストール
+        run: |
+          pnpm install --frozen-lockfile
+
+      - name: 🔒 脆弱性スキャン
+        run: |
+          pnpm audit --audit-level moderate

@@ -23,6 +23,7 @@ export interface ThemedButtonProps {
   loading?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
+  testID?: string;
 }
 
 export function ThemedButton({
@@ -34,6 +35,7 @@ export function ThemedButton({
   loading = false,
   style,
   textStyle,
+  testID,
 }: ThemedButtonProps) {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
@@ -62,6 +64,7 @@ export function ThemedButton({
 
   return (
     <TouchableOpacity
+      testID={testID}
       style={buttonStyles}
       onPress={handlePress}
       disabled={disabled || loading}

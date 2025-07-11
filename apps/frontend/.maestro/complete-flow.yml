@@ -1,0 +1,39 @@
+appId: host.exp.Exponent
+tags:
+  - complete
+  - integration
+---
+# 完全なE2Eテストフロー
+- openLink: exp://127.0.0.1:8081
+
+# 初期画面の確認
+- assertVisible: "ホーム画面へ"
+- tapOn: "ホーム画面へ"
+
+# サインイン画面の確認
+- assertVisible: "サインイン"
+- assertVisible: "メールアドレス"
+- assertVisible: "パスワード"
+
+# 認証フロー
+- tapOn: "pikachu@example.com"
+- tapOn: "pikachuPokemon1234!"
+- tapOn:
+    id: "signInButton"
+
+# ローディング状態の確認
+- assertVisible: "処理中..."
+
+# メインアプリケーションの確認
+- assertVisible: "ホーム"
+- assertVisible: "ポケモンカード管理"
+
+# タブナビゲーションの確認
+- tapOn: "アイテム"
+- assertVisible: "アイテム"
+- tapOn: "プロフィール"
+- assertVisible: "プロフィール"
+- tapOn: "設定"
+- assertVisible: "設定"
+- tapOn: "ホーム"
+- assertVisible: "ホーム"

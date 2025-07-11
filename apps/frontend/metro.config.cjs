@@ -1,7 +1,11 @@
 const { getDefaultConfig } = require('expo/metro-config');
 const path = require('path');
 
-const config = getDefaultConfig(__dirname);
+// プロジェクトルートディレクトリ
+const projectRoot = __dirname;
+const monorepoRoot = path.resolve(projectRoot, '../..');
+
+const config = getDefaultConfig(projectRoot);
 
 // ホットリロードを有効にする
 config.server = {
@@ -29,9 +33,24 @@ config.resolver = {
   },
 };
 
-// ファイル変更監視設定
+// モノレポ用のwatchFolders設定
 config.watchFolders = [
-  ...config.watchFolders || [],
+  monorepoRoot,
 ];
+
+// モノレポ用の依存関係解決設定
+config.resolver = {
+  ...config.resolver,
+  nodeModulesPaths: [
+    path.resolve(projectRoot, 'node_modules'),
+    path.resolve(monorepoRoot, 'node_modules'),
+  ],
+  sourceExts: [...config.resolver.sourceExts, 'js', 'jsx', 'ts', 'tsx'],
+  alias: {
+    '@': path.resolve(__dirname, '.'),
+    '@/components': path.resolve(__dirname, './components'),
+    '@/src': path.resolve(__dirname, './src'),
+  },
+};
 
 module.exports = config;

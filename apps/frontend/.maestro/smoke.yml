@@ -1,0 +1,13 @@
+appId: host.exp.Exponent
+tags:
+  - smoke
+---
+# スモークテスト: アプリの基本機能確認
+# Expo開発環境での実行
+- openLink: exp://127.0.0.1:8081
+- assertVisible: "ホーム画面へ"
+- tapOn: "ホーム画面へ"
+- assertVisible: "ホーム"
+- assertVisible: "アイテム"
+- assertVisible: "プロフィール"
+- assertVisible: "設定"

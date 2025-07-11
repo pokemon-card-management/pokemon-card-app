@@ -72,7 +72,11 @@ jobs:
       run: pnpm install
 
     - name: Run Jest tests (Frontend)
-      run: pnpm test --workspace=apps/frontend
+      run: |
+        cd apps/frontend
+        pnpm test --coverage
 
     - name: Run Bun tests (Backend)
-      run: pnpm test --workspace=apps/backend
+      run: |
+        cd apps/backend
+        bun test

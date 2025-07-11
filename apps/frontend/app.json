@@ -14,17 +14,37 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.naosuzuki.pokemoncardmanagement",
+      "usesIcloudStorage": false,
+      "usesAppleSignIn": false,
+      "usesNonExemptEncryption": false,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.naosuzuki.pokemoncardmanagement"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-build-properties",
+      "expo-dev-client"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "8eb85422-66bf-4e48-ae12-9438809f3fb9"
+      }
+    },
+    "owner": "naosuzuki"
   }
 }

@@ -1,0 +1,27 @@
+appId: host.exp.Exponent
+tags:
+  - navigation
+  - ui
+---
+# ナビゲーションテスト
+- openLink: exp://127.0.0.1:8081
+- assertVisible: "サインイン"
+
+# 認証を通してホーム画面に移動
+- tapOn: "pikachu@example.com"
+- tapOn: "pikachuPokemon1234!"
+- tapOn:
+    id: "signInButton"
+
+# ホーム画面での操作
+- assertVisible: "ホーム"
+
+# タブナビゲーションのテスト
+- tapOn: "アイテム"
+- assertVisible: "アイテム一覧"
+- tapOn: "プロフィール"
+- assertVisible: "プロフィール"
+- tapOn: "設定"
+- assertVisible: "設定"
+- tapOn: "ホーム"
+- assertVisible: "ホーム"
