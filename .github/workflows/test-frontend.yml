@@ -21,7 +21,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: apps/frontend
+        working-directory: .
 
     steps:
       - name: 🏗 リポジトリをチェックアウト
@@ -30,7 +30,7 @@ jobs:
       - name: 📦 pnpm をセットアップ
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: 🏗 Node.js をセットアップ
@@ -42,16 +42,16 @@ jobs:
 
       - name: 📦 依存関係をインストール
         run: |
-          pnpm install --no-frozen-lockfile
+          pnpm install --frozen-lockfile
 
       - name: 🔍 TypeScript型チェック
-        run: pnpm tsc --noEmit
+        run: pnpm --filter frontend tsc --noEmit
 
       - name: 🧹 ESLint チェック
-        run: pnpm run lint
+        run: pnpm --filter frontend run lint
 
       - name: 🧪 Jest単体テストを実行
-        run: pnpm test --coverage
+        run: pnpm --filter frontend test --coverage
 
       - name: 📊 テストカバレッジをアップロード
         uses: codecov/codecov-action@v4
@@ -67,7 +67,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: apps/frontend
+        working-directory: .
 
     steps:
       - name: 🏗 リポジトリをチェックアウト
@@ -76,7 +76,7 @@ jobs:
       - name: 📦 pnpm をセットアップ
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 9
           run_install: false
 
       - name: 🏗 Node.js をセットアップ
@@ -96,10 +96,10 @@ jobs:
           pnpm install --frozen-lockfile
 
       - name: 🚀 Expo プリビルドチェック
-        run: npx expo install --check
+        run: pnpm --filter frontend exec expo install --check
 
       - name: 🔧 Metro Bundlerでビルドチェック
-        run: npx expo export --platform web --clear
+        run: pnpm --filter frontend exec expo export --platform web --clear
 
   security-scan:
     name: Frontend Security Scan
@@ -107,7 +107,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: apps/frontend
+        working-directory: .
 
     steps:
       - name: 🏗 リポジトリをチェックアウト
@@ -115,4 +115,4 @@ jobs:
 
       - name: 🔒 脆弱性スキャン
         run: |
-          pnpm audit --audit-level moderate
+          pnpm --filter frontend audit --audit-level moderate
